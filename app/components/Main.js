@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import TreeNode from './treeNode'
+import TreeNode from './treeNode';
+
 
 var tree = {
   title: "howdy",
@@ -15,7 +15,13 @@ var tree = {
   ]
 };
 
-ReactDOM.render(
-  <TreeNode node={tree} />,
-  document.getElementById("root")
-);
+export default class Main extends React.Component {
+  render() {
+    return (
+      <div>
+        <TreeNode node={tree}/>
+        {React.cloneElement(this.props.children, this.props)}
+      </div>
+    );
+  }
+}
