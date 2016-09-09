@@ -5,9 +5,7 @@ export default function dirInfo(state = [], action) {
     case GET_DIR_INFO:
       let new_state =
         {
-          current_file_type:  dirTreeHelpers.getFileType(action.path),
-          path: action.path,
-          info: dirTreeHelpers.getFiles(action.path)
+          dirInfo: dirTreeHelpers.getFiles(action.path)
         };
       console.log(new_state);
       return new_state;
