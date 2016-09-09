@@ -1,8 +1,8 @@
-import {dirTreeInfo} from './actionDefinitions';
+export const GET_DIR_INFO =  "GET_DIR_INFO"
 
-export function getFiles(path) {
-    return {
-        type: dirTreeInfo.GET_DIR_INFO,
-        path: path
-    }
+export function getDirInfo(path) {
+  return {
+    type: GET_DIR_INFO,
+    path: path
+  }
 }

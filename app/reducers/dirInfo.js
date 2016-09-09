@@ -1,16 +1,14 @@
-import * as dirTreeHelpers from '../helperMethods/dirTreeHelpers.js'
-import {dirTreeInfo} from '../actions/actionDefinitions';
+import {GET_DIR_INFO} from '../actions/actionCreators';
 
 export default function dirInfo(state = [], action) {
   switch (action.type) {
-    case dirTreeInfo.GET_DIR_INFO:
-      return (
+    case GET_DIR_INFO:
+      let new_state =
         {
-          current_file_type:  dirTreeHelpers.getFiletype(action.path),
-          path: action.path,
-          info: dirTreeHelpers.getfiles(action.path)
-        }
-      );
+          dirInfo: dirTreeHelpers.getFiles(action.path)
+        };
+      console.log(new_state);
+      return new_state;
     default:
       return state;
   }

@@ -1,13 +1,11 @@
 import { createStore, compose } from 'redux';
-import * as dirTreeHelpers from './helperMethods/dirTreeHelpers.js';
-
-import rootReducer from './reducers/index';
+import rootReducer from './reducers/rootReducer';
 
 function setDefaultState(){
   let currentDir = "./";
   return (
       {
-        dirInfo: dirTreeHelpers.getfiles(currentDir)
+        dirInfo: dirTreeHelpers.getFiles(currentDir)
       }
   );
 }

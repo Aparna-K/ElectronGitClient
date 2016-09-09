@@ -1,28 +1,18 @@
-// let's go!
-// import React from 'react';
-//
-import { render } from 'react-dom';
-//
-// import App from './components/App';
-//
-// import { Provider } from 'react-redux';
-// import store, { history } from './store';
-//
-// const router = (
-//     <Provider store={store}>
-//       {App}
-//     </Provider>
-// );
-//
-// render(router, document.getElementById('root'));
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './store';
 
-// In renderer process (web page).
-const {ipcRenderer} = require('electron');
-console.log(ipcRenderer.sendSync('synchronous-message', 'ping')); // prints "pong"
+import App from './components/containerMain';
 
-ipcRenderer.on('asynchronous-reply', (event, arg) => {
-  console.log(arg); // prints "pong"
-});
-ipcRenderer.send('asynchronous-message', 'ping');
 
-render(<div>Hello</div>, document.getElementById('root'));
+const router = (
+    <Provider store={store}>
+      <App />
+    </Provider>
+);
+
+ReactDOM.render(
+  router,
+  document.getElementById("root")
+);
