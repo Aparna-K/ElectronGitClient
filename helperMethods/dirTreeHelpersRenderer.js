@@ -1,11 +1,18 @@
-const {ipcRenderer} = require('electron');
+var fs = require("fs");
 
 function getFiles(path) {
-  return ipcRenderer.sendSync('getFilesSync-request', path);
+  let files = fs.readdirSync(path);
+  let files_info = files.map( (file) => {
+    return ({
+      "name": file,
+      "type": fs.statSync(path+"/"+file).isDirectory() ? "Dir" : "File"
+    });
+  });
+  return files_info;
 }
 
 function getFileType(path) {
-  return ipcRenderer.sendSync('getFileTypeSync-request', path);
+  return fs.statSync(path).isDirectory() ? "Dir" : "File"
 }
 
 module.exports = {

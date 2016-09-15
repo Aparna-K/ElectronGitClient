@@ -1,5 +1,4 @@
 require('babel-register');
-var dirTreeHelpersMain = require('./helperMethods/dirTreeHelpersMain.js');
 
 const electron = require('electron');
 // Module to control application life.
@@ -31,8 +30,3 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow);
-
-
-//Register IPC listeners
-
-dirTreeHelpersMain.registerDirInfoListeners();
