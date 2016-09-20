@@ -1,29 +1,17 @@
-import { createStore, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import rootReducer from './reducers/rootReducer';
+import rootSaga from './sagas';
 
-// function setDefaultState(){
-//   let currentDir = "./",
-//       dirInfo;
-//   dirTreeHelpers.getFilesInfoAsync(currentDir).then((files => dirInfo = files));
-//   return { dirInfo: dirInfo }
-// }
-// const defaultState = setDefaultState();
-// const store = createStore(rootReducer, defaultState);
+const sagaMiddleware = createSagaMiddleware();
 
-var currentDir = "./",
-    store=createStore(rootReducer, {}),
-    defaultState;
+const defaultState = {};
 
-(() => {
-  dirTreeHelpers.getFilesInfoAsync(currentDir)
-      .then((filesInfo) => {
-        return {dirInfo: filesInfo}
-      })
-      .then((defaultState) => {
-        store = createStore(rootReducer, defaultState);
-      })
-      .catch((err) => { throw err });
-})();
-
+const store = createStore(
+                  rootReducer,
+                  defaultState,
+                  applyMiddleware(sagaMiddleware)
+              );
+sagaMiddleware.run(rootSaga);
 
 export default store;

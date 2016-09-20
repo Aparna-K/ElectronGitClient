@@ -1,9 +1,11 @@
-import {GET_DIR_INFO} from '../actions/actionCreators';
+import {actionTypes} from '../actions/actionCreators';
 
 export default function dirInfo(state = [], action) {
   switch (action.type) {
-    case GET_DIR_INFO:
+    case actionTypes.GET_DIR_INFO:
       return dirTreeHelpers.getFiles(action.path);
+    case actionTypes.UPDATE_DIR_INFO:
+      return action.dirInfo;
     default:
       return state;
   }

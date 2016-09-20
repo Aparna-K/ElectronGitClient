@@ -16,11 +16,25 @@ var tree = {
 
 class Main extends React.Component {
   render() {
+    let { dirInfo } = this.props;
+    let dirListElems = _.map(dirInfo, (fileInfo) => {
+      return (
+          <li key={fileInfo.name}>
+            <span>name: {fileInfo.name}</span>
+            &nbsp;
+            <span>isDir: {fileInfo.isDir ? "true" : "false"}</span>
+          </li>
+      )
+    });
     return (
       <div>
-        <TreeNode node={tree} />
+        {dirListElems}
       </div>
     );
+  }
+  componentWillMount(){
+    //Load up the initial state
+    this.props.getDirInfoAsync("./");
   }
 }
 
