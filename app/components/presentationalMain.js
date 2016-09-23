@@ -1,34 +1,12 @@
 import React from 'react';
-import TreeNode from './treeNode'
-
-var tree = {
-  title: "howdy",
-  childNodes: [
-    {title: "bobby"},
-    {title: "suzie", childNodes: [
-      {title: "puppy", childNodes: [
-        {title: "dog house"}
-      ]},
-      {title: "cherry tree"}
-    ]}
-  ]
-};
+import DirTree from './dirTreeComponents/dirTree'
 
 class Main extends React.Component {
   render() {
-    let { dirInfo } = this.props;
-    let dirListElems = _.map(dirInfo, (fileInfo) => {
-      return (
-          <li key={fileInfo.name}>
-            <span>name: {fileInfo.name}</span>
-            &nbsp;
-            <span>isDir: {fileInfo.isDir ? "true" : "false"}</span>
-          </li>
-      )
-    });
     return (
       <div>
-        {dirListElems}
+        <DirTree dirInfo={this.props.dirInfo}
+                 getDirInfoAsync={this.props.getDirInfoAsync.bind(this)} />
       </div>
     );
   }

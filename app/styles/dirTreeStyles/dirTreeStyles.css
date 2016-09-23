@@ -1,0 +1,16 @@
+li.file-node {
+    list-style: none;
+}
+
+li.dir-node {
+    list-style: none;
+}
+
+ul.dir-node {
+    list-style: none;
+}
+
+a.dir-node{
+    text-decoration: none;
+    color: inherit;
+}

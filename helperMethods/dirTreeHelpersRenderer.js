@@ -1,18 +1,19 @@
 var fs = require("fs");
 var async = require("async");
+var path = require('path');
 
 
 /*
     Args:
-      path => (String) path to a directory.
+      dirPath => (String) path to a directory.
     Return:
       A Promise object;
       resolves => Listing of the directory in <path>
       rejects  => Error
 */
-function getDirListingAsync(path){
+function getDirListingAsync(dirPath){
   return new Promise(function(resolve, reject){
-    fs.readdir(path, (err, files) => {
+    fs.readdir(dirPath, (err, files) => {
       if(err){
         reject(err);
       } else {
@@ -45,7 +46,7 @@ function getFstatListAsync(files = []){
 
 /*
     Args:
-      path => (String) path to a directory
+      dirPath => (String) path to a directory
     Return:
       A promise object:
       resolves => Array of javascript objects of the signature
@@ -53,42 +54,30 @@ function getFstatListAsync(files = []){
       rejects  => Error
 */
 
-function getFilesInfoAsync(path){
+function getFilesInfoAsync(dirPath){
   let filesInDir = [];
-  return getDirListingAsync(path)
-          .then((files) => {
-            filesInDir = files;
-            return getFstatListAsync(files.map((f) => {return path + "/" + f}));
-          })
-          .then((file_stat_arr) => {
-            var files_hash = file_stat_arr.map((file_info, i) => {
-              return {
-                "name": filesInDir[i],
-                "isDir": file_info.isDirectory()
-              }
-            });
-            return files_hash;
-          })
-          .catch((err) => { throw err })
-}
-
-function getFilesSync(path) {
-  let files = fs.readdirSync(path);
-  let files_info = files.map( (file) => {
-    return ({
-      "name": file,
-      "type": fs.statSync(path+"/"+file).isDirectory() ? "Dir" : "File"
-    });
-  });
-  return files_info;
-}
-
-function getFileTypeSync(path) {
-  return fs.statSync(path).isDirectory() ? "Dir" : "File"
+  return getDirListingAsync(dirPath)
+      .then((files) => {
+        filesInDir = files;
+        return getFstatListAsync(files.map((f) => {return dirPath + "/" + f}));
+      })
+      .then((file_stat_arr) => {
+        var absRootPath = path.resolve(dirPath);
+        var files_hash = {
+          "rootPath": absRootPath,
+          "rootDirName": path.basename(absRootPath),
+          "children": file_stat_arr.map((file_info, i) => {
+            return {
+              "name": filesInDir[i],
+              "isDir": file_info.isDirectory(),
+              "path": absRootPath+"/"+filesInDir[i]
+            }
+          })};
+        return files_hash;
+      })
+      .catch((err) => { throw err })
 }
 
 module.exports = {
-  getFiles: getFilesSync,
-  getFileType: getFileTypeSync,
   getFilesInfoAsync: getFilesInfoAsync
 };
