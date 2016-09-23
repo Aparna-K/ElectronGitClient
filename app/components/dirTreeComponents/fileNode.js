@@ -1,12 +1,17 @@
 import React from 'react';
+import classNames from 'classnames';
 
 class FileNode extends React.Component {
   render() {
-    let { fileName } = this.props;
+    let { fileName, handleClick } = this.props;
     return (
-      <li className="file-node">
-        {fileName}
-      </li>
+        <div onClick={handleClick}>
+          <li className="file-node">
+            <i className={classNames("file", "outline", "icon")} />
+            &nbsp;
+            {fileName}
+          </li>
+        </div>
     );
   }
 }

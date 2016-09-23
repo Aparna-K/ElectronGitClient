@@ -12,7 +12,15 @@ import DirNode from './dirNode';
 * */
 class DirTreeNode extends React.Component {
   handleDirClick(e){
+    let currentDirElement = $(e.target).closest("li.dir-node").children("ul.dir-node");
+    if(currentDirElement.children().length){
+      currentDirElement.toggle(); // toggle children view if directory is already loaded
+    }
+
     this.props.getDirInfoAsync(this.props.absPath);
+    e.stopPropagation();
+  }
+  handleFileClick(e){
     e.stopPropagation();
   }
 
@@ -25,7 +33,8 @@ class DirTreeNode extends React.Component {
                            getDirInfoAsync={getDirInfoAsync}
                            children={children}/>;
     } else {
-      component = <FileNode fileName={fileName}/>;
+      component = <FileNode fileName={fileName}
+                            handleClick={this.handleFileClick.bind(this)}/>;
     }
 
     return (

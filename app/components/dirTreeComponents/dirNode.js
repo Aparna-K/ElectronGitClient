@@ -18,7 +18,7 @@ class DirNode extends React.Component {
     return (
       <div onClick={handleClick}>
         <li className="dir-node">
-          <i className={classNames("folder","outline","icon")}/>
+          <i className={classNames("folder","icon")}/>
           &nbsp;
           {fileName}
           <ul className="dir-node">
