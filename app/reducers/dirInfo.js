@@ -61,18 +61,7 @@ export default function dirInfo(state = {}, action) {
         }
 
       }
-
     default:
       return state;
   }
 }
-
-
-//  case 1: You find the current directory that has been looked up (action.dirInfo)
-          //          in the current state. append the action.dirInfo.children to the corresponding directory in the state.
-          // let subDirToUpdate = state.children[action.dirInfo.rootDirName];
-          // let updatedSubDir = Object.assign({}, subDirToUpdate, {children: arrayFileInfoToObject(action.dirInfo.children)});
-          // let stateChildren = state.children;
-          // let updatedRootchildren = {...stateChildren, [action.dirInfo.rootDirName]: updatedSubDir};
-          // let newState = Object.assign({}, state, {children: updatedRootchildren} );
-          // return newState;
